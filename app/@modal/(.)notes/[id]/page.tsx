@@ -20,7 +20,7 @@ async function NotePage({ params }: NotePreviewProps) {
     queryFn: () => fetchNoteById(id),
   });
 
-  const note = queryClient.getQueryData(['notes', id]);
+  const note = queryClient.getQueryData(['note', id]);
   if (!note) {
     notFound();
   }

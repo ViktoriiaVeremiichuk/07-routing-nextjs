@@ -24,7 +24,7 @@ export default function NotePreview() {
     );
   }
 
-  // 3. Додано обробку стану помилки або відсутності даних
+
   if (isError || !note) {
     return (
       <Modal onClose={() => router.back()}>
