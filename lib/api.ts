@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { CreateNote, Note } from '@/types/note';
+import type { Category } from '@/types/category';
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 
 export interface NotesResponse {
@@ -7,22 +8,31 @@ export interface NotesResponse {
   totalPages: number;
 }
 
-export const fetchNotes = async (
-  page: number,
-  perPage: number,
-  search: string
-): Promise<NotesResponse> => {
+interface FetchNotesParams {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  tag?: string;
+}
+
+export const fetchNotes = async ({
+  page = 1,
+  perPage = 10,
+  search = '',
+  tag,
+}: FetchNotesParams = {}): Promise<NotesResponse> => {
   const response = await axios.get<NotesResponse>('/notes', {
     params: {
       page,
       perPage,
       search,
+      tag,
     },
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
     },
   });
-  console.log(response.data);
+
   return response.data;
 };
 
