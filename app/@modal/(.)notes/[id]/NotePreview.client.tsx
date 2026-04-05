@@ -10,12 +10,28 @@ export default function NotePreview() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
 
-  const { data: note } = useQuery({
-    queryKey: ['notes', id],
+  const { data: note, isLoading, isError } = useQuery({
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
-  if (!note) return null;
+  
+  if (isLoading) {
+    return (
+      <Modal onClose={() => router.back()}>
+        <div className={css.statusMessage}>Завантаження нотатки...</div>
+      </Modal>
+    );
+  }
+
+  // 3. Додано обробку стану помилки або відсутності даних
+  if (isError || !note) {
+    return (
+      <Modal onClose={() => router.back()}>
+        <div className={css.statusMessage}>Помилка: Нотатку не знайдено</div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal onClose={() => router.back()}>
