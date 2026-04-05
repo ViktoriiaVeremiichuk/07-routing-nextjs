@@ -1,14 +1,15 @@
-import NoteList from '@/components/NoteList/NoteList';
 import { fetchNotes } from '@/lib/api';
+import NotesClient from './Notes.client';
 
-interface NotesFiltersProps {
-  params: Promise<{ slug: [string] }>;
+interface NoteFiltersProps {
+  params: Promise<{ slug: string[] }>;
 }
 
-async function NoteFilters({ params }: NotesFiltersProps) {
+async function NoteFilters({ params }: NoteFiltersProps) {
   const { slug } = await params;
 
   const currentTag = slug[0] === 'all' ? undefined : slug[0];
+
   const data = await fetchNotes({
     page: 1,
     perPage: 12,
@@ -16,14 +17,10 @@ async function NoteFilters({ params }: NotesFiltersProps) {
     tag: currentTag,
   });
 
-  console.log(data.notes);
-
   return (
-    <div>
-      {/* <h1>Notes by filters</h1> */}
-
-      <NoteList notes={data.notes} />
-    </div>
+    <main>
+      <NotesClient notes={data.notes} />
+    </main>
   );
 }
 
