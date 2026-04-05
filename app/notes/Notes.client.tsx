@@ -27,7 +27,7 @@ function NotesClient() {
 
   const { data, isLoading, isError, isSuccess } = useQuery<NotesResponse>({
     queryKey: ['notes', page, search],
-    queryFn: () => fetchNotes(page, perPage, search),
+    queryFn: () => fetchNotes({page, perPage, search}),
     placeholderData: keepPreviousData,
   });
 
