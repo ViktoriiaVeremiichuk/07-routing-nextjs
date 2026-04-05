@@ -12,9 +12,12 @@ import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useParams } from 'next/navigation';
 
-function NotesClient() {
-  const { slug } = useParams<{ slug: string[] }>();
-  const currentTag = slug && slug[0] !== 'all' ? slug[0] : undefined;
+interface NotesClientProps {
+  currentTag?: string;
+}
+
+function NotesClient({ currentTag }: NotesClientProps) {
+  
 
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,9 +52,7 @@ function NotesClient() {
             onPageChange={setPage}
           />
         )}
-        <button onClick={openModal}>
-          Create note +
-        </button>
+        <button onClick={openModal}>Create note +</button>
 
         {isModalOpen && (
           <Modal onClose={closeModal}>

@@ -21,9 +21,9 @@ export default async function NotePage({ params }: NotePageProps) {
     queryFn: () => fetchNoteById(id),
   });
 
-  const note = queryClient.getQueryData(['notes', id]);
+  const state = queryClient.getQueryState(['notes', id]);
 
-  if (!note) {
+  if (state?.status === 'error' || !state?.data) {
     notFound();
   }
 

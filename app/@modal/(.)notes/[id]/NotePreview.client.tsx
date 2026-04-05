@@ -17,6 +17,7 @@ export default function NotePreview() {
   } = useQuery({
     queryKey: ['notes', id],
     queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
   });
 
   const handleClose = () => {
