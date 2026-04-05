@@ -10,15 +10,12 @@ import type { NotesResponse } from '@/lib/api';
 import { fetchNotes } from '@/lib/api';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import { useParams } from 'next/navigation';
 
 interface NotesClientProps {
   currentTag?: string;
 }
 
 function NotesClient({ currentTag }: NotesClientProps) {
-  
-
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState(1);
