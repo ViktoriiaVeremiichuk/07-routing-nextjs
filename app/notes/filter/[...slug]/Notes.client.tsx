@@ -1,6 +1,5 @@
 'use client';
 
-import css from './Notes.client.module.css';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import Modal from '@/components/Modal/Modal';
@@ -36,11 +35,11 @@ function NotesClient() {
     placeholderData: keepPreviousData,
   });
 
-  if (isError) return <p className={css.message}>Error!</p>;
+  if (isError) return <p>Error!</p>;
 
   return (
-    <div className={css.app}>
-      <header className={css.toolbar}>
+    <div>
+      <header>
         <SearchBox search={search} onSearch={handleSearch} />
 
         {isSuccess && data.totalPages > 1 && (
@@ -50,7 +49,7 @@ function NotesClient() {
             onPageChange={setPage}
           />
         )}
-        <button className={css.button} onClick={openModal}>
+        <button onClick={openModal}>
           Create note +
         </button>
 
@@ -62,9 +61,9 @@ function NotesClient() {
       </header>
 
       {isLoading ? (
-        <p className={css.message}>Loading, please wait...</p>
+        <p>Loading, please wait...</p>
       ) : data?.notes.length === 0 ? (
-        <p className={css.message}>Empty list</p>
+        <p>Empty list</p>
       ) : (
         <NoteList notes={data?.notes ?? []} />
       )}
